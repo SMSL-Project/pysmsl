@@ -1,0 +1,79 @@
+// Operators:
+//     // comments
+//     #  headers of a state branch (SB)
+//     {} contains a SB
+//     [] contains the possible states
+//     -> operation pointing
+//
+// Keywords:
+//     "name" the name of the SB
+//     "initial" the initial state of the SB
+//     "activating" the activating state of the higher level SB
+//
+// {} contains a state branch (SB)
+// The first state within {} is the initial state of the SB, by default
+// The last state within {} of a higher level SB is the activating state, by default
+
+{
+
+    # name: SB1 // required
+    # initial: StateA // optional
+
+    StateA:
+
+        [
+            OperationA1 -> StateB
+        ] ,
+        
+
+    StateB:
+
+        [
+            OperationB1 -> StateC ,
+            OperationB2 -> StateA
+        ] ,
+        
+    StateC:
+
+        {
+            # name: SB1_1  // required
+            # initial: StateCA  // optional
+            # activating: StateCB // required
+
+            StateCA:
+
+                [
+                    OperationCA1 -> StateCB
+                ] ,
+
+            StateCB:
+
+                [
+                    OperationCA1 -> StateCB
+                ]
+        }
+} ,
+
+{
+
+    # name: SB2 // required
+
+    StateX:
+
+        [
+            OperationX1 -> StateY
+        ] ,
+
+    StateY:
+
+        [
+            OperationY1 -> StateZ
+        ] ,
+
+    StateZ:
+
+        [
+            OperationZ1 -> StateX
+        ]
+}
+
