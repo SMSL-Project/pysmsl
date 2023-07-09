@@ -2,7 +2,7 @@
 //     // comments
 //     #  headers of a state branch (SB)
 //     {} contains a SB
-//     [] contains the possible states
+//     [] contains the possible operation and ending states
 //     -> operation pointing
 //
 // Keywords:

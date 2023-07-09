@@ -1,0 +1,7 @@
+operation           : TT_IDENTIFIER
+state               : TT_IDENTIFIER
+pointing            : operation ((TT_OP_POINTING) state)*
+statebranch         : 
+endstates           :
+assignop            : state ((TT_ASSIGN) endstates)*
+assignsb            : state ((TT_ASSIGN) statebranch)*
