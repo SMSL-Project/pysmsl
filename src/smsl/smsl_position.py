@@ -1,5 +1,4 @@
 class Position:
-
     def __init__(self, idx, ln, col, fn, ftxt):
         self.idx = idx
         self.ln = ln
@@ -7,7 +6,7 @@ class Position:
         self.fn = fn
         self.ftxt = ftxt
 
-    def advance(self, current_char):
+    def advance(self, current_char=None):
         self.idx += 1
         self.col += 1
 
@@ -16,6 +15,6 @@ class Position:
             self.col = 0
 
         return self
-    
+
     def copy(self):
         return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
