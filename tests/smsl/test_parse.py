@@ -1,3 +1,8 @@
+# from src.smsl.smsl_context import *
+# from src.smsl.smsl_lexer import *
+# from src.smsl.smsl_parser import *
+# from src.smsl.smsl_interperter import *
+
 def run(fn, text):
     """
     Test parsing structured text to SMSL data
