@@ -1,0 +1,54 @@
+# keywords: 
+#   HEADER
+#   NAME the name of the SB
+#   INITIAL the initial state of the SB
+#   ACTIVATING the activating state of the higher level SB
+
+SB1:
+
+  HEADER:
+    NAME: SB1
+    INITIAL: StateA
+
+  StateA: [
+    OperationA1: StateB
+  ]
+
+  StateB: [
+    OperationA1: StateB,
+    OperationA1: StateB
+  ]
+
+  StateC:
+
+    SB1_1:
+
+      HEADER:
+        NAME: SB1_1
+        INITIAL: StateCA
+        ACTIVATING: StateCB
+
+      StateCA: [
+        OperationCA1: StateCB
+      ]
+
+      StateCB: [
+        OperationCB1: StateCA
+      ]
+
+SB2:
+
+  HEADER:
+    NAME: SB2
+
+  StateX: [
+    OperationX1: StateY
+  ]
+
+  StateY: [
+    OperationY1: StateZ
+  ]
+
+  StateZ: [
+    OperationZ1: StateX
+  ]

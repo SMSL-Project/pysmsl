@@ -6,9 +6,9 @@
 //     -> operation pointing
 //
 // Keywords:
-//     "name" the name of the SB
-//     "initial" the initial state of the SB
-//     "activating" the activating state of the higher level SB
+//     "NAME" the name of the SB
+//     "INITIAL" the initial state of the SB
+//     "ACTIVATING" the activating state of the higher level SB
 //
 // {} contains a state branch (SB)
 // The first state within {} is the initial state of the SB, by default
@@ -16,8 +16,8 @@
 
 {
 
-    # name: SB1 // required
-    # initial: StateA // optional
+    # NAME: SB1 // required
+    # INITIAL: StateA // optional
 
     StateA:
 
@@ -36,9 +36,9 @@
     StateC:
 
         {
-            # name: SB1_1  // required
-            # initial: StateCA  // optional
-            # activating: StateCB // required
+            # NAME: SB1_1  // required
+            # INITIAL: StateCA  // optional
+            # ACTIVATING: StateCB // required
 
             StateCA:
 
@@ -56,7 +56,7 @@
 
 {
 
-    # name: SB2 // required
+    # NAME: SB2 // required
 
     StateX:
 
