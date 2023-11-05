@@ -1,0 +1,34 @@
+{
+    "_comments": 
+        "header: SB Name, Initial State (optional, first state if not given), Activating State (required for L_SB > 0)",
+    "header": "SB1, StateA",
+    "SB1": {
+        "StateA": [
+            {"OperationA1": "StateB"}
+        ],
+        "StateB": [
+            {"OperationB1": "StateC"},
+            {"OperationB2": "StateA"}
+        ],
+        "StateC": {
+            "StateCA": [
+                {"OperationCA1": "StateCB"}
+            ],
+            "StateCB": [
+                {"OperationCB1": "StateCA"}
+            ]
+        }
+    },
+    "SB2": {
+        "StateX": [
+            {"OperationX1": "StateY"}
+        ],
+        "StateY": [
+            {"OperationY1": "StateZ"}
+        ],
+        "StateZ": [
+            {"OperationZ1": "StateX"}
+        ]  
+    }
+    
+}

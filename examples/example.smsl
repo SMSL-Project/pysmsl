@@ -49,7 +49,7 @@
             StateCB:
 
                 [
-                    OperationCA1 -> StateCB
+                    OperationCB1 -> StateCA
                 ]
         }
 } ,
