@@ -3,12 +3,15 @@
 //     #  headers of a state branch (SB)
 //     {} contains a SB
 //     [] contains the possible operation and ending states
+//     () container
 //     -> operation pointing
 //
 // Keywords:
 //     "NAME" the name of the SB
 //     "INITIAL" the initial state of the SB
 //     "ACTIVATING" the activating state of the higher level SB
+//     "NUM_FACT" the number of facts (state digits)
+//     "SUB_SB" the higher level SB it contains
 //
 // {} contains a state branch (SB)
 // The first state within {} is the initial state of the SB, by default
@@ -16,64 +19,35 @@
 
 {
 
-    # NAME: SB1 // required
-    # INITIAL: StateA // optional
+    # NAME: SB1
+    # INITIAL: State000
+    # NUM_FACT: 3
+    # SUB_SB: (SB2: 0)
 
-    StateA:
+    State000: [Operation000 -> State100],
 
-        [
-            OperationA1 -> StateB
-        ] ,
+    State100: [
+        Operation100A -> State110,
+        Operation100B -> State111
+    ],
         
+    State110: [
+        Operation110A -> State100,
+        Operation110B -> State111
+    ],
 
-    StateB:
+    State111: [ ]
 
-        [
-            OperationB1 -> StateC ,
-            OperationB2 -> StateA
-        ] ,
-        
-    StateC:
-
-        {
-            # NAME: SB1_1  // required
-            # INITIAL: StateCA  // optional
-            # ACTIVATING: StateCB // required
-
-            StateCA:
-
-                [
-                    OperationCA1 -> StateCB
-                ] ,
-
-            StateCB:
-
-                [
-                    OperationCB1 -> StateCA
-                ]
-        }
 } ,
 
 {
+    # NAME: SB2
+    # INITIAL: State0
+    # ACTIVATING: State1
+    # NUM_FACT: 1
 
-    # NAME: SB2 // required
+    State0: [Operation0 -> State1]
 
-    StateX:
-
-        [
-            OperationX1 -> StateY
-        ] ,
-
-    StateY:
-
-        [
-            OperationY1 -> StateZ
-        ] ,
-
-    StateZ:
-
-        [
-            OperationZ1 -> StateX
-        ]
+    State1: [Operation1 -> State0]
 }
 
