@@ -3,6 +3,11 @@ class smslFileNotSupportedError(Exception):
         self.message = message
         super().__init__(self.message)
 
+class smslDataStructNotSupportedError(Exception):
+    def __init__(self, message="Data structure not supported."):
+        self.message = message
+        super().__init__(self.message)
+
 # def string_with_arrows(text, pos_start, pos_end):
 # 	result = ''
 
