@@ -2,9 +2,9 @@ import json
 from smsl_state_branch import smslStateBranch
 from smsl_state import smslState
 from smsl_operation import smslOperation
+from smsl_smsl import post_process
 from smsl_errors import (
     smslJsonSBInitialNotDefined,
-    smslJsonSubSBNotFound
 )
 
 def process_file_data(json_data : dict):
@@ -31,6 +31,7 @@ def process_file_data(json_data : dict):
                 {},
                 states,
                 operations,
+                None,
                 _sub_sbs
             )
             sb_list.append(new_sb)
@@ -72,32 +73,6 @@ def process_file_data_sb_states(sb_data : dict):
                 for op, end_state in ops.items()
         )
     return states, operations
-
-def post_process(sb_list : list):
-    """
-    Post processing
-    - Attach sub SBs
-    - Get the SB level
-    - Remove SBs that has an SB level of >= 1 (starting 0)
-    """
-    # - Attach sub SBs
-    # Basically a problem that:
-    #   L is a list of tree nodes, randomized order, no connection
-    #   Need to reconstruct the tree from these tree nodes
-    _temp_name_lookup = {}
-    for sb in sb_list:
-        _temp_name_lookup[sb.name] = sb
-    for sb in sb_list:
-        for sub_sb_name, state_digit in sb._sub_sbs.items():
-            if sub_sb_name not in _temp_name_lookup.keys():
-                raise smslJsonSubSBNotFound
-            sb.sub_sbs[_temp_name_lookup[sub_sb_name]] = state_digit
-            del sb._sub_sbs[sub_sb_name]
-        if bool(sb._sub_sbs):
-            raise smslJsonSubSBNotFound
-    # - Get the SB level of each SB
-
-    # - Remove SBs that has an SB level of >= 1 (starting 0)
 
 def print_file_data(json_data : dict):
     """

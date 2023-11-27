@@ -51,9 +51,13 @@ class smslStateBranch:
         """
         Post processing
         - Get the SB level
-        - ...
         """
-        return
+        def _assign_levels(node : smslStateBranch, current_level=0):
+            node.sb_level = current_level
+            for i in node.sub_sbs.keys():
+                _assign_levels(i, current_level+1)
+        # assign levels
+        _assign_levels(self)
 
     def add_states(self, states : list[smslState]):
         """
@@ -73,5 +77,5 @@ class smslStateBranch:
         """
         Plot the state branch
         """
-        nx.draw(self.graph, with_labels=True)
+        nx.draw_networkx(self.graph, arrows=True, with_labels=True)
         plt.show()
