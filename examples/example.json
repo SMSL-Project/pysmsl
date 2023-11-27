@@ -1,54 +1,56 @@
 {
     "_comments": {
-        "HEADER": "NAME the name of the SB", 
-        "INITIAL": "the initial state of the SB",
+        "HEADER": "",
+        "INITIAL": "the initial state of the SB, default the first state",
         "ACTIVATING": "the activating state of the SB (required for higher level SB)",
-        "NUM_FACT": "the number of facts (state digits)",
-        "SUB_SB": "the higher level SB it contains"
+        "NUM_FACTS": "the number of facts (state digits)",
+        "SUB_SBS": "the higher level SB it contains and its corresponding state digit"
+    },
+
+    "_comment_note": {
+        "UNDERSCORE_FIELDS": "The fields with the name starts with underscore is skipped"
     },
 
     "SB1": {
         "HEADER": {
-            "NAME": "SB1",
             "INITIAL": "State000",
-            "NUM_FACT": 3,
-            "SUB_SB": {
+            "NUM_FACTS": 3,
+            "SUB_SBS": {
                 "SB2": 0 
             }
         },
 
-        "State000": [
-            {"Operation000": "State100"}
-        ],
+        "State000": {
+            "Operation000": "State100"
+        },
 
-        "State100": [
-            {"Operation100A": "State110"},
-            {"Operation100B": "State111"}
-        ],
+        "State100": {
+            "Operation100A": "State110",
+            "Operation100B": "State111"
+        },
 
-        "State110": [
-            {"Operation110A": "State100"},
-            {"Operation110B": "State111"}
-        ],
+        "State110": {
+            "Operation110A": "State100",
+            "Operation110B": "State111"
+        },
 
-        "State111": [ ]
+        "State111": { }
     },
 
     "SB2": {
         "HEADER": {
-            "NAME": "SB2",
             "INITIAL": "State0",
             "ACTIVATING": "State1",
-            "NUM_FACT": 1
+            "NUM_FACTS": 1
         },
 
-        "State0": [
-            {"Operation0": "State1"}
-        ],
+        "State0": {
+            "Operation0": "State1"
+        },
 
-        "State1": [
-            {"Operation1": "State0"}
-        ]
+        "State1": {
+            "Operation1": "State0"
+        }
     }
     
 }

@@ -1,6 +1,6 @@
 import yaml
 
-def process(yaml_data):
+def process_file_data(yaml_data):
     """
     Process loaded YAML data structure
     """
