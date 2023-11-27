@@ -67,9 +67,10 @@ def process_file_data_sb_states(sb_data : dict):
         if state == "HEADER" or state.startswith('_'):
             # skip non-data entries
             continue
-        states.append(smslState(state))
+        start_state = smslState(state)
+        states.append(start_state)
         operations.extend(
-            smslOperation(op, state, end_state) \
+            smslOperation(op, start_state, smslState(end_state)) \
                 for op, end_state in ops.items()
         )
     return states, operations

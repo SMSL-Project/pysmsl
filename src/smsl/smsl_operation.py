@@ -8,6 +8,8 @@ class smslOperation:
                  name : str,
                  start_state : smslState,
                  end_state : smslState):
+        assert isinstance(start_state, smslState), 'Start state has to be smslState.'
+        assert isinstance(end_state, smslState), 'End state has to be smslState.'
         self.operation_name = name
         self.start_state = start_state
         self.end_state = end_state
