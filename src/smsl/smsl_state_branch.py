@@ -36,6 +36,10 @@ class smslStateBranch:
         """
         Constructor
         """
+        assert isinstance(initial, smslState), 'Initial state has to be smslState.'
+        assert isinstance(activating, smslState), 'Activating state has to be smslState.'
+        assert isinstance(num_facts, int), 'Num of facts has to be int.'
+
         self.name = name
         self.initial = initial
         self.activating = activating
@@ -80,6 +84,7 @@ class smslStateBranch:
         # TODO graph plots have issues
         # https://stackoverflow.com/questions/22785849/drawing-multiple-edges-between-two-nodes-with-networkx
         # https://graph-tool.skewed.de
+        # TODO plot sub SBs
         pos=nx.spring_layout(self.graph,seed=5)
         nx.draw_networkx_nodes(self.graph, pos)
         nx.draw_networkx_edges(self.graph, pos)
