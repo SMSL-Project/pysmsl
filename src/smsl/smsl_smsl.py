@@ -1,3 +1,4 @@
+import copy
 from smsl_state_branch import smslStateBranch
 from smsl_errors import (
     smslSubSBNotFound,
@@ -30,7 +31,7 @@ def post_process(sb_list : list):
         for sub_sb_name, state_digit in sb._sub_sbs.items():
             if sub_sb_name not in _temp_name_lookup.keys():
                 raise smslSubSBNotFound
-            sb.sub_sbs[_temp_name_lookup[sub_sb_name]] = state_digit
+            sb.sub_sbs[copy.deepcopy(_temp_name_lookup[sub_sb_name])] = state_digit
             _temp_list_name_subsb.append(sub_sb_name)
         sb._sub_sbs = {} # clear
 
