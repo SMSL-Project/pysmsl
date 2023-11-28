@@ -15,7 +15,7 @@ class smslOperation:
         self.end_state = end_state
 
     def _to_graph_edge(self):
-        return (self.start_state, self.end_state)
+        return (self.start_state, self.end_state, {'OP':self.operation_name})
     
     def __repr__(self) -> str:
         return f"smslOperation({repr(self.start_state)} -> {repr(self.end_state)})"

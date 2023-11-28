@@ -42,7 +42,7 @@ class smslStateBranch:
         self.num_facts = num_facts
         self.sub_sbs = sub_sbs
         self._sub_sbs = _sub_sbs
-        self.graph = nx.Graph()
+        self.graph = nx.MultiDiGraph()
         self.add_states(states)
         self.add_operations(operations)
         self._post_process()
@@ -77,5 +77,18 @@ class smslStateBranch:
         """
         Plot the state branch
         """
-        nx.draw_networkx(self.graph, arrows=True, with_labels=True)
+        # TODO graph plots have issues
+        # https://stackoverflow.com/questions/22785849/drawing-multiple-edges-between-two-nodes-with-networkx
+        # https://graph-tool.skewed.de
+        pos=nx.spring_layout(self.graph,seed=5)
+        nx.draw_networkx_nodes(self.graph, pos)
+        nx.draw_networkx_edges(self.graph, pos)
+        nx.draw_networkx_labels(self.graph, pos)
+        nx.draw_networkx_edge_labels(self.graph, pos)
+        
+        plt.axis('off')
+        axis = plt.gca()
+        axis.set_xlim([1.2*x for x in axis.get_xlim()])
+        axis.set_ylim([1.2*y for y in axis.get_ylim()])
+        plt.tight_layout()
         plt.show()
