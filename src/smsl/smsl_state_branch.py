@@ -97,3 +97,28 @@ class smslStateBranch:
         axis.set_ylim([1.2*y for y in axis.get_ylim()])
         plt.tight_layout()
         plt.show()
+
+    def shortest_path(self, start, end):
+        """
+        Return a list of the states on the shortest path
+        """
+        return nx.shortest_path(
+            self.graph, 
+            start, 
+            end
+        )
+    
+    def edge_path(self, path : list):
+        """
+        Return a list of the edges on the shortest path list of states
+        """
+        return [
+            self.graph[path[i]][path[i+1]] \
+            for i in range(len(path) - 1)
+        ]
+    
+    def shortest_edge_path(self, start, end):
+        """
+        Return a list of the edges on the shortest path list of states
+        """
+        return self.edge_path(self.shortest_path(start, end))

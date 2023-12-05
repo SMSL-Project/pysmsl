@@ -126,7 +126,7 @@
         "State_acc": {
             "Op_2b": "State_abc",
             "Op_1b": "State_bcc",
-            "Op_2c": "State_ccc"
+            "Op_1c": "State_ccc"
         },
         "State_bcc": {
             "Op_1c": "State_ccc",

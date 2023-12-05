@@ -1,6 +1,11 @@
 import vtk
 import time
 from functools import partial
+import sys
+sys.path.append('../src/smsl/')
+import smsl
+from smsl_state import smslState
+import networkx as nx
 
 class smslTutorialHanoiScene:
     """
@@ -20,7 +25,17 @@ class smslTutorialHanoiScene:
         self.init_misc()
         self.init_camera()
         self.init_scene_objects()
-        self.example_move()
+        # self.example_move()
+    
+    def go(self, ops):
+        """
+        Start the demo
+        - ops: [(1, 'c'), (2, 'b'), ...]
+        """
+        for i in ops:
+            self.Op_nx(i[0], i[1])
+        fnc = self.buffer_move_disk.pop(0)
+        fnc()
 
     def example_move(self):
         """
@@ -277,7 +292,21 @@ class smslUtlTimerCallback_MoveActor:
 
 def main():
     
+    sm = smsl.smslStateMachine('../examples/hanoi.json')
+    
+    path = sm.state_machine[0].shortest_edge_path(
+        smslState('State_aaa'), 
+        smslState('State_ccc')
+    )
+    
+    ops = []
+    for op in path:
+        _op = op[0]['OP']
+        print(_op)
+        ops.append((_op.split('_')[1][0], _op.split('_')[1][1]))
+
     scene = smslTutorialHanoiScene()
+    scene.go(ops)
     
     # Start the rendering loop
     scene.render_window.Render()
