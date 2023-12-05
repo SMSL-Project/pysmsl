@@ -12,12 +12,14 @@ class smslTutorialHanoiScene:
     Tutorial of a Hanoi game scene
     """
 
-    def __init__(self):
+    def __init__(self, init_state='aaa'):
         """
         Constructor
         """
-        self.pole_pile = [3, 0, 0]
         self.pole_name = {'a': 0, 'b': 1, 'c': 2}
+        self.pole_pile = [0, 0, 0]
+        self.init_state = init_state
+        self.pole_pos = [-2,0,2]
         self.disk_name = {}
         self.buffer_move_actor = []
         self.buffer_move_disk = []
@@ -67,7 +69,7 @@ class smslTutorialHanoiScene:
 
         # Create a render window
         self.render_window = vtk.vtkRenderWindow()
-        self.render_window.SetWindowName("Moving Disks with Thickness Example")
+        self.render_window.SetWindowName("Hanoi")
         self.render_window.SetSize(800, 600)
         self.render_window.AddRenderer(self.renderer)
 
@@ -112,14 +114,26 @@ class smslTutorialHanoiScene:
 
         # Create three moving disks with thickness
         disk3 = self.create_disk(
-            0.35*1.5, 0.6*1.5, center=(0, -2, 0), color=(1, 0.5, 0)
+            0.35*1.5, 0.6*1.5, 
+            center=(0, self.pole_pos[self.pole_name[self.init_state[2]]], 
+                    0.5*self.pole_pile[self.pole_name[self.init_state[2]]]), 
+            color=(1, 0.5, 0)
         )
+        self.pole_pile[self.pole_name[self.init_state[2]]] += 1
         disk2 = self.create_disk(
-            0.35*1.3, 0.6*1.3, center=(0, -2, 0.5), color=(0, 0, 1)
+            0.35*1.3, 0.6*1.3, 
+            center=(0, self.pole_pos[self.pole_name[self.init_state[1]]], 
+                    0.5*self.pole_pile[self.pole_name[self.init_state[1]]]), 
+            color=(0, 0, 1)
         )
+        self.pole_pile[self.pole_name[self.init_state[1]]] += 1
         disk1 = self.create_disk(
-            0.35, 0.6, center=(0, -2, 1), color=(0.5, 0, 0.5)
+            0.35, 0.6, 
+            center=(0, self.pole_pos[self.pole_name[self.init_state[0]]], 
+                    0.5*self.pole_pile[self.pole_name[self.init_state[0]]]), 
+            color=(0.5, 0, 0.5)
         )
+        self.pole_pile[self.pole_name[self.init_state[0]]] += 1
 
         self.renderer.AddActor(disk1)
         self.renderer.AddActor(disk2)
@@ -292,11 +306,14 @@ class smslUtlTimerCallback_MoveActor:
 
 def main():
     
+    start   = 'caa'
+    end     = 'bcc'
+
     sm = smsl.smslStateMachine('../examples/hanoi.json')
-    
+    scene = smslTutorialHanoiScene(start)
     path = sm.state_machine[0].shortest_edge_path(
-        smslState('State_aaa'), 
-        smslState('State_ccc')
+        smslState('State_'+start), 
+        smslState('State_'+end)
     )
     
     ops = []
@@ -304,11 +321,9 @@ def main():
         _op = op[0]['OP']
         print(_op)
         ops.append((_op.split('_')[1][0], _op.split('_')[1][1]))
-
-    scene = smslTutorialHanoiScene()
-    scene.go(ops)
     
     # Start the rendering loop
+    scene.go(ops)
     scene.render_window.Render()
     scene.render_window_interactor.Start()
 
