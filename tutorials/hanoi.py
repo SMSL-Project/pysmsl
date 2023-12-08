@@ -16,13 +16,25 @@ class smslTutorialHanoiScene:
         """
         Constructor
         """
+        scale_f = 0.02
+        self.dim = {
+            'pole_dist' : 2.0 * scale_f,
+            'pole_rad' : 0.1 * scale_f,
+            'pole_h' : 4.0 * scale_f,
+            'cam_pos' : 20.0 * scale_f,
+            'disk_size' : 0.6 * scale_f,
+            'disk_thick' : 0.5 * scale_f,
+            'action_step' : 0.1 * scale_f
+        }
         self.pole_name = {'a': 0, 'b': 1, 'c': 2}
         self.pole_pile = [0, 0, 0]
         self.init_state = init_state
-        self.pole_pos = [-2,0,2]
+        self.pole_pos = [-self.dim['pole_dist'],0.0,self.dim['pole_dist']]
         self.disk_name = {}
         self.buffer_move_actor = []
         self.buffer_move_disk = []
+        self.timer_id = []
+        self.observer_id = []
         self.init_renderer()
         self.init_misc()
         self.init_camera()
@@ -88,7 +100,7 @@ class smslTutorialHanoiScene:
         """
         # Set up the camera
         self.camera = vtk.vtkCamera()
-        self.camera.SetPosition(15, 0, 20)
+        self.camera.SetPosition(self.dim['cam_pos'] * 0.75, 0, self.dim['cam_pos'])
         self.camera.SetFocalPoint(0, 0, 0)
         self.camera.SetViewUp(0, 0, 1)
         self.camera.SetViewAngle(20)
@@ -114,48 +126,59 @@ class smslTutorialHanoiScene:
 
         # Create three moving disks with thickness
         disk3 = self.create_disk(
-            0.35*1.5, 0.6*1.5, 
-            center=(0, self.pole_pos[self.pole_name[self.init_state[2]]], 
-                    0.5*self.pole_pile[self.pole_name[self.init_state[2]]]), 
+            0.6*self.dim['disk_size']*1.5, self.dim['disk_size']*1.5, 
+            center=(
+                0, self.pole_pos[self.pole_name[self.init_state[2]]], 
+                self.dim['disk_thick']*self.pole_pile[self.pole_name[self.init_state[2]]]
+            ), 
             color=(1, 0.5, 0)
         )
         self.pole_pile[self.pole_name[self.init_state[2]]] += 1
         disk2 = self.create_disk(
-            0.35*1.3, 0.6*1.3, 
-            center=(0, self.pole_pos[self.pole_name[self.init_state[1]]], 
-                    0.5*self.pole_pile[self.pole_name[self.init_state[1]]]), 
+            0.6*self.dim['disk_size']*1.3, self.dim['disk_size']*1.3, 
+            center=(
+                0, self.pole_pos[self.pole_name[self.init_state[1]]], 
+                self.dim['disk_thick']*self.pole_pile[self.pole_name[self.init_state[1]]]
+            ), 
             color=(0, 0, 1)
         )
         self.pole_pile[self.pole_name[self.init_state[1]]] += 1
         disk1 = self.create_disk(
-            0.35, 0.6, 
-            center=(0, self.pole_pos[self.pole_name[self.init_state[0]]], 
-                    0.5*self.pole_pile[self.pole_name[self.init_state[0]]]), 
+            0.6*self.dim['disk_size'], self.dim['disk_size'], 
+            center=(
+                0, self.pole_pos[self.pole_name[self.init_state[0]]], 
+                self.dim['disk_thick']*self.pole_pile[self.pole_name[self.init_state[0]]]
+            ), 
             color=(0.5, 0, 0.5)
         )
         self.pole_pile[self.pole_name[self.init_state[0]]] += 1
 
-        self.renderer.AddActor(disk1)
-        self.renderer.AddActor(disk2)
-        self.renderer.AddActor(disk3)
         self.disk_name['1'] = disk1
         self.disk_name['2'] = disk2
         self.disk_name['3'] = disk3
 
         # Create three cylinders
-        cylinder1 = self.create_cylinder(
-            radius=0.1, height=4.0, center=(0, 2, -2), color=(1, 1, 1), orientation=(90, 0, 0)
+        _ = self.create_cylinder(
+            radius=self.dim['pole_rad'], 
+            height=self.dim['pole_h'], 
+            center=(0, self.dim['pole_dist'], -self.dim['pole_dist']), 
+            color=(1, 1, 1), orientation=(90, 0, 0)
         )
-        cylinder2 = self.create_cylinder(
-            radius=0.1, height=4.0, center=(0, 2, 0), color=(1, 1, 1), orientation=(90, 0, 0)
+        _ = self.create_cylinder(
+            radius=self.dim['pole_rad'], 
+            height=self.dim['pole_h'], 
+            center=(0, self.dim['pole_dist'], 0), 
+            color=(1, 1, 1), orientation=(90, 0, 0)
         )
-        cylinder3 = self.create_cylinder(
-            radius=0.1, height=4.0, center=(0, 2, 2), color=(1, 1, 1), orientation=(90, 0, 0)
+        _ = self.create_cylinder(
+            radius=self.dim['pole_rad'], 
+            height=self.dim['pole_h'], 
+            center=(0, self.dim['pole_dist'], self.dim['pole_dist']), 
+            color=(1, 1, 1), orientation=(90, 0, 0)
         )
 
-        self.renderer.AddActor(cylinder1)
-        self.renderer.AddActor(cylinder2)
-        self.renderer.AddActor(cylinder3)
+        self.gripper = self.create_obj(
+            'assb.obj', 4, (-2*self.dim['pole_dist'],0,0), (0,0,230))
 
     def create_disk(self, 
                     inner_radius=0.5, 
@@ -180,7 +203,7 @@ class smslTutorialHanoiScene:
         actor.SetMapper(color_mapper)
         actor.GetProperty().SetColor(color)
         actor.SetPosition(center)
-
+        self.renderer.AddActor(actor)
         return actor
     
     def create_cylinder(self, 
@@ -208,37 +231,85 @@ class smslTutorialHanoiScene:
         actor.GetProperty().SetColor(color)
         actor.SetOrientation(orientation)
 
+        self.renderer.AddActor(actor)
+
         return actor
-    
+
+    def create_obj(self, file, scale, pos, rot):
+        """
+        Load obj file
+        """
+        obj_reader = vtk.vtkOBJReader()
+        obj_reader.SetFileName(file)
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputConnection(obj_reader.GetOutputPort())
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+        actor.SetScale(scale, scale, scale)
+        actor.SetPosition(pos)  
+        actor.RotateX(rot[0])
+        actor.RotateY(rot[1])
+        actor.RotateZ(rot[2])
+        self.renderer.AddActor(actor)
+        return actor
+
     def move_disk(self, disk, to):
         """
         Move a disk to a pole
-        - to: 0, 1, 2 (x: -2, 0 2)
+        - to: 0, 1, 2 
         """
         
-        y_to = -2 + to * 2
-        _,y,_ = disk.GetPosition()
-        frm = (y - (-2)) / 2
-        z_to = 0.5 * self.pole_pile[to]
-        self.buffer_move_actor.append(partial(self.move_actor, disk, (0,y,4.2)))
-        self.buffer_move_actor.append(partial(self.move_actor, disk, (0,y_to,4.2)))
-        self.buffer_move_actor.append(partial(self.move_actor,disk, (0,y_to,z_to)))
+        y_to = -self.dim['pole_dist'] + to * self.dim['pole_dist']
+        _,y,z = disk.GetPosition()
+        frm = (y - (-self.dim['pole_dist'])) / self.dim['pole_dist']
+        z_to = self.dim['disk_thick'] * self.pole_pile[to]
+
+        self.buffer_move_actor.append(partial(
+            self.move_actor, [self.gripper], 
+            (0, y, self.dim['pole_h']*1.05))
+        )
+        self.buffer_move_actor.append(partial(
+            self.move_actor, [self.gripper], 
+            (0, y, z))
+        )
+
+        self.buffer_move_actor.append(partial(
+            self.move_actor, [disk, self.gripper], 
+            (0, y, self.dim['pole_h']*1.05))
+        )
+        self.buffer_move_actor.append(partial(
+            self.move_actor, [disk, self.gripper], 
+            (0, y_to, self.dim['pole_h']*1.05))
+        )
+        self.buffer_move_actor.append(partial(
+            self.move_actor, [disk, self.gripper],
+            (0, y_to, z_to))
+        )
+
+        self.buffer_move_actor.append(partial(
+            self.move_actor, [self.gripper], 
+            (0, y_to, self.dim['pole_h']*1.05))
+        )
         self.pole_pile[to] += 1
         self.pole_pile[round(frm)] -= 1
         fnc = self.buffer_move_actor.pop(0)
         fnc()
         
-    def move_actor(self, actor, target_position):
+    def move_actor(self, actors, target_position):
         """
         Move an actor
         """
-        self.timer_id = self.render_window_interactor.CreateRepeatingTimer(10)
-        timer_callback = smslUtlTimerCallback_MoveActor(
-            actor, target_position, self.render_window, self.render_window_interactor, 0.1, self
-        )
-        self.observer_id = self.render_window_interactor.AddObserver(
-            vtk.vtkCommand.TimerEvent, timer_callback.execute_move_actor
-        )
+        for actor in actors:
+            self.timer_id.append(self.render_window_interactor.CreateRepeatingTimer(10))
+            timer_callback = smslUtlTimerCallback_MoveActor(
+                actor, target_position, self.render_window, 
+                self.render_window_interactor, 
+                self.dim['action_step'], 
+                self
+            )
+            self.observer_id.append(self.render_window_interactor.AddObserver(
+                vtk.vtkCommand.TimerEvent, timer_callback.execute_move_actor
+            ))
 
 class smslUtlTimerCallback_MoveActor:
     """
@@ -293,8 +364,10 @@ class smslUtlTimerCallback_MoveActor:
             self.end()
     
     def end(self):
-        self.interactor.DestroyTimer(self.scene.timer_id)
-        self.interactor.RemoveObserver(self.scene.observer_id)
+        for timer_id in self.scene.timer_id:
+            self.interactor.DestroyTimer(timer_id)
+        for observer_id in self.scene.observer_id:
+            self.interactor.RemoveObserver(observer_id)
         if self.scene.buffer_move_actor:
             fnc = self.scene.buffer_move_actor.pop(0)
             fnc()
@@ -306,8 +379,8 @@ class smslUtlTimerCallback_MoveActor:
 
 def main():
     
-    start   = 'caa'
-    end     = 'bcc'
+    start   = 'aaa'
+    end     = 'ccc'
 
     sm = smsl.smslStateMachine('../examples/hanoi.json')
     scene = smslTutorialHanoiScene(start)
