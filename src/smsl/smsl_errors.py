@@ -8,11 +8,6 @@ class smslDataStructNotSupportedError(Exception):
         self.message = message
         super().__init__(self.message)
 
-class smslJsonSBInitialNotDefined(Exception):
-    def __init__(self, message="Initial state of the StateBranch is not defined."):
-        self.message = message
-        super().__init__(self.message)
-
 class smslSubSBNotFound(Exception):
     def __init__(self, message="A sub StateBranch was not found."):
         self.message = message

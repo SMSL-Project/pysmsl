@@ -3,9 +3,6 @@ from smsl_state_branch import smslStateBranch
 from smsl_state import smslState
 from smsl_operation import smslOperation
 from smsl_smsl import post_process
-from smsl_errors import (
-    smslJsonSBInitialNotDefined,
-)
 
 def process_file_data(json_data : dict):
     """
@@ -23,6 +20,10 @@ def process_file_data(json_data : dict):
                 process_file_data_sb_header(new_sb_entry['HEADER'])
             states, operations = \
                 process_file_data_sb_states(new_sb_entry)
+            if initial == None:
+                initial = smslState(states[0])
+            if activating == None:
+                activating = smslState(states[-1])
             new_sb = smslStateBranch(
                 new_sb_name, 
                 initial, 
@@ -47,15 +48,13 @@ def process_file_data_sb_header(header_data : dict):
     """
     initial, activating, num_facts, sub_sbs = None, None, 0, {}
     if 'INITIAL' in header_data.keys():
-        initial = header_data['INITIAL']
+        initial = smslState(header_data['INITIAL'])
     if 'ACTIVATING' in header_data.keys():
-        activating = header_data['ACTIVATING']
+        activating = smslState(header_data['ACTIVATING'])
     if 'NUM_FACTS' in header_data.keys():
         num_facts = header_data['NUM_FACTS']
     if 'SUB_SBS' in header_data.keys():
         sub_sbs = header_data['SUB_SBS']
-    if initial == None:
-        raise smslJsonSBInitialNotDefined
     return initial, activating, num_facts, sub_sbs
 
 def process_file_data_sb_states(sb_data : dict):

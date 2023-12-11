@@ -36,6 +36,10 @@ class smslStateBranch:
         """
         Constructor
         """
+        assert isinstance(initial, smslState), 'Initial state has to be smslState.'
+        assert isinstance(activating, smslState), 'Activating state has to be smslState.'
+        assert isinstance(num_facts, int), 'Num of facts has to be int.'
+
         self.name = name
         self.initial = initial
         self.activating = activating
@@ -80,6 +84,7 @@ class smslStateBranch:
         # TODO graph plots have issues
         # https://stackoverflow.com/questions/22785849/drawing-multiple-edges-between-two-nodes-with-networkx
         # https://graph-tool.skewed.de
+        # TODO plot sub SBs
         pos=nx.spring_layout(self.graph,seed=5)
         nx.draw_networkx_nodes(self.graph, pos)
         nx.draw_networkx_edges(self.graph, pos)
@@ -92,3 +97,28 @@ class smslStateBranch:
         axis.set_ylim([1.2*y for y in axis.get_ylim()])
         plt.tight_layout()
         plt.show()
+
+    def shortest_path(self, start, end):
+        """
+        Return a list of the states on the shortest path
+        """
+        return nx.shortest_path(
+            self.graph, 
+            start, 
+            end
+        )
+    
+    def edge_path(self, path : list):
+        """
+        Return a list of the edges on the shortest path list of states
+        """
+        return [
+            self.graph[path[i]][path[i+1]] \
+            for i in range(len(path) - 1)
+        ]
+    
+    def shortest_edge_path(self, start, end):
+        """
+        Return a list of the edges on the shortest path list of states
+        """
+        return self.edge_path(self.shortest_path(start, end))
