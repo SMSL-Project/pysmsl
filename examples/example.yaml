@@ -11,7 +11,7 @@ SB1: [
     INITIAL: State000,
     NUM_FACTS: 3,
     SUB_SBS: [
-      SB2: 0 # sub SB and its corresponding state digit in SB1
+      SB2: 1 # sub SB and its corresponding state digit in SB1
     ]
   ] ,
 

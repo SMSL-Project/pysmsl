@@ -1,0 +1,63 @@
+{
+    "REGISTRATION": {
+        "HEADER": {},
+        "State_0000": {
+            "Op_PlanLandmarks": "State_1000",
+            "Op_PlanToolPose": "State_0010",
+            "Op_UsePrevReg": "State_1101"
+        },
+        "State_0010": {
+            "Op_ClearToolPose": "State_0000",
+            "Op_ReplanToolPose": "State_0010",
+            "Op_PlanLandmarks": "State_1010",
+            "Op_UsePrevReg": "State_1111"
+        },
+        "State_1000": {
+            "Op_ClearLandmarks": "State_0000",
+            "Op_ReplanLandmarks": "State_1000",
+            "Op_UsePrevReg": "State_1101",
+            "Op_DigitizeLandmarks": "State_1100",
+            "Op_PlanToolPose": "State_1010"
+        },
+        "State_1010": {
+            "Op_ClearLandmarks": "State_0010",
+            "Op_ReplanLandmarks": "State_1010",
+            "Op_ClearToolPose": "State_1000",
+            "Op_DigitizeLandmarks": "State_1110",
+            "Op_ReplanToolPose": "State_1010",
+            "Op_UsePrevReg": "State_1111"
+        },
+        "State_1100": {
+            "Op_ClearDigitization": "State_1000",
+            "Op_ReplanLandmarks": "State_1000",
+            "Op_ClearLandmarks": "State_0000",
+            "Op_Redigitize": "State_1100",
+            "Op_Register": "State_1101",
+            "Op_UsePrevReg": "State_1101",
+            "Op_PlanToolPose": "State_1110"
+        },
+        "State_1110": {
+            "Op_ClearLandmarks": "State_0010",
+            "Op_ReplanLandmarks": "State_1010",
+            "Op_ClearToolPose": "State_1100",
+            "Op_ReplanToolPose": "State_1110",
+            "Op_Redigitize": "State_1110",
+            "Op_ClearDigitization": "State_1010",
+            "Op_UsePrevReg": "State_1111",
+            "Op_Register": "State_1111"
+        },
+        "State_1101": {
+            "Op_ClearLandmarks": "State_0000",
+            "Op_ClearReg": "State_1100",
+            "Op_UsePrevReg": "State_1101",
+            "Op_PlanToolPose": "State_1111"
+        },
+        "State_1111": {
+            "Op_ClearReg": "State_1110",
+            "Op_ClearToolPose": "State_1101",
+            "Op_UsePrevReg": "State_1111",
+            "Op_ReplanToolPose": "State_1111",
+            "Op_ClearLandmarks": "State_0010"
+        }
+    }
+}

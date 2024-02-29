@@ -16,7 +16,7 @@
             "INITIAL": "State000",
             "NUM_FACTS": 3,
             "SUB_SBS": {
-                "SB2": 0 
+                "SB2": 1 
             }
         },
 
