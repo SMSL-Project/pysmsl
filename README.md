@@ -22,11 +22,18 @@ pip install pysmsl
 
 ## Citation
 
-Please consider to cite the following paper:
+Please consider to cite the following papers:
 
+Liu, Y., & Armand, M. (2024). A Roadmap Towards Automated and Regulated Robotic Systems. arXiv preprint arXiv:submit/5485234.
 Liu, Y., Kheradmand, A., & Armand, M. (2023). Toward Process Controlled Medical Robotic System. arXiv preprint arXiv:2308.05809.
 
 ````
+@article{liu2024roadmap,
+  title={A Roadmap Towards Automated and Regulated Robotic Systems},
+  author={Liu, Yihao and Armand, Mehran},
+  journal={arXiv preprint arXiv:submit/5485234},
+  year={2024}
+}
 @article{liu2023toward,
   title={Toward Process Controlled Medical Robotic System},
   author={Liu, Yihao and Kheradmand, Amir and Armand, Mehran},
