@@ -31,7 +31,7 @@ Liu, Y., Kheradmand, A., & Armand, M. (2023). Toward Process Controlled Medical 
 @article{liu2024roadmap,
   title={A Roadmap Towards Automated and Regulated Robotic Systems},
   author={Liu, Yihao and Armand, Mehran},
-  journal={arXiv preprint arXiv:submit/5485234},
+  journal={arXiv preprint arXiv:2403.14049},
   year={2024}
 }
 @article{liu2023toward,
