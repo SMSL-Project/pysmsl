@@ -2,7 +2,7 @@ import vtk
 import time
 from functools import partial
 import sys
-sys.path.append('../src/smsl/')
+sys.path.append('../../../src/smsl/')
 import smsl
 from smsl_state import smslState
 import networkx as nx
@@ -379,10 +379,10 @@ class smslUtlTimerCallback_MoveActor:
 
 def main():
     
-    start   = 'aaa'
+    start   = 'aab'
     end     = 'ccc'
 
-    sm = smsl.smslStateMachine('../examples/hanoi.json')
+    sm = smsl.smslStateMachine('../../../examples/hanoi.json')
     scene = smslTutorialHanoiScene(start)
     path = sm.state_machine[0].shortest_edge_path(
         smslState('State_'+start), 
