@@ -62,7 +62,7 @@ class smslTutorialHanoiSensor:
         """
         Interface to the sensor readings
         """
-        return {"a": 44.0, "b": 0.0, "c": 40.0}
+        return {"a": 114000.0, "b": 106000.0, "c": 0.0}
 
 
 class smslTutorialHanoiRobot:
@@ -119,7 +119,7 @@ def main():
     sm = smsl.smslStateMachine('../../../examples/hanoi.json')
     
     # Disks' weights
-    disks_weights = {"1": 16, "2": 28, "3": 40}
+    disks_weights = {"1": 43000, "2": 75000, "3": 98000}
 
     # Initialize the robot and sensor
     robot = smslTutorialHanoiRobot()
