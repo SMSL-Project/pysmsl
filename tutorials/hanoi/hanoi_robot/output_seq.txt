@@ -1,0 +1,37 @@
+aab to ccc
+[('3', 'c'), ('1', 'b'), ('2', 'c'), ('1', 'c')]
+Move 3 to c:
+Move to top of 3(...)
+Get down to height :...
+Close jaw
+Get up to top height
+Move to top of 3(...)
+Get down to height :...
+Open jaws
+
+Move 1 to b:
+Move to top of 1(...)
+Get down to height :...
+Close jaw
+Get up to top height
+Move to top of 1(...)
+Get down to height :...
+Open jaws
+
+Move 2 to c:
+Move to top of 2(...)
+Get down to height :...
+Close jaw
+Get up to top height
+Move to top of 2(...)
+Get down to height :...
+Open jaws
+
+Move 1 to c:
+Move to top of 1(...)
+Get down to height :...
+Close jaw
+Get up to top height
+Move to top of 1(...)
+Get down to height :...
+Open jaws
