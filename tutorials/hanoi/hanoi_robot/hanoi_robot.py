@@ -6,6 +6,10 @@ import json
 import smsl
 from smsl_state import smslState
 
+# from hanoi_robot import get_topic_data_once
+# from std_msgs.msg import Float32MultiArray
+
+
 class smslTutorialHanoiSensor:
 
     def __init__(self, sm, disks_weights) -> None:
@@ -17,6 +21,7 @@ class smslTutorialHanoiSensor:
         self.disks_weights = disks_weights
         self.state_mapper = {}
         self.initialize_state_mapper()
+        self.pole_name = {'a': 0, 'b': 1, 'c': 2}
 
     def initialize_state_mapper(self):
         """
@@ -62,6 +67,9 @@ class smslTutorialHanoiSensor:
         """
         Interface to the sensor readings
         """
+        # data = get_topic_data_once('load_cells_data', Float32MultiArray)
+        # print(f"Received data: {data}")
+        # return {"a": data[0], "b": data[1], "c": data[2]}
         return {"a": 114000.0, "b": 106000.0, "c": 0.0}
 
 
@@ -82,21 +90,30 @@ class smslTutorialHanoiRobot:
         """
         The sequence of an action moving disk to target
         """
-        print("Move " + str(disk) + " to " + str(target))
+        print("Move " + str(disk) + " to " + str(target) + ":")
 
         # Move to top of the disk
+        print("Move to top of " + str(disk) + "(" + str("...") + ")")
 
         # Move to disk
+        print("Get down to height :" + str("..."))
 
         # Grab disk
+        print("Close jaw")
 
         # Move to top of the disk
+        print("Get up to top height")
 
         # Move to top of the target
+        print("Move to top of " + str(disk) + "(" + str("...") + ")")
 
         # Move to the target
+        print("Get down to height :" + str("..."))
 
         # Release disk
+        print("Open jaws")
+
+        print()
 
         # Check if there is still remaining
         if len(self.buffer_move_disk) > 0:
