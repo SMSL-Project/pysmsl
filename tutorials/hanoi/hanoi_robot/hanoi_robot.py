@@ -86,17 +86,20 @@ class smslTutorialHanoiRobot:
         """
         pass
 
-    def move_disk(self, disk, target):
+    def move_disk(self, disk, target, cur_state):
         """
         The sequence of an action moving disk to target
         """
         print("Move " + str(disk) + " to " + str(target) + ":")
 
         # Move to top of the disk
-        print("Move to top of " + str(disk) + "(" + str("...") + ")")
+        print("Move to top of " + str(disk) + " (pole " + cur_state[int(disk)-1] + ")")
 
         # Move to disk
-        print("Get down to height :" + str("..."))
+        height = {"a": 0.0, "b": 0.0, "c": 0.0}
+        for i in cur_state:
+            height[i] += 10
+        print("Get down to height " + str(height[cur_state[int(disk)-1]]))
 
         # Grab disk
         print("Close jaw")
@@ -105,10 +108,10 @@ class smslTutorialHanoiRobot:
         print("Get up to top height")
 
         # Move to top of the target
-        print("Move to top of " + str(disk) + "(" + str("...") + ")")
+        print("Move to top of pole " + str(target))
 
         # Move to the target
-        print("Get down to height :" + str("..."))
+        print("Get down to height " + str(height[target]))
 
         # Release disk
         print("Open jaws")
@@ -120,14 +123,14 @@ class smslTutorialHanoiRobot:
             fnc = self.buffer_move_disk.pop(0)
             fnc()
 
-    def go(self, ops):
-        for i in ops:
-            self.Op_nx(i[0], i[1])
+    def go(self, ops, sts):
+        for i in range(len(ops)):
+            self.Op_nx(ops[i][0], ops[i][1], sts[i])
         fnc = self.buffer_move_disk.pop(0)
         fnc()
 
-    def Op_nx(self, disk, target):
-        self.buffer_move_disk.append(partial(self.move_disk, disk, target))
+    def Op_nx(self, disk, target, cur_state):
+        self.buffer_move_disk.append(partial(self.move_disk, disk, target, cur_state))
 
 
 def main():
@@ -149,6 +152,10 @@ def main():
         smslState('State_'+start),
         smslState('State_'+end)
     )
+    path_states = sm.state_machine[0].shortest_path(
+        smslState('State_'+start),
+        smslState('State_'+end)
+    )
 
     # Buffer the operation sequence
     ops = []
@@ -156,11 +163,19 @@ def main():
         _op = op[0]['OP']
         ops.append((_op.split('_')[1][0], _op.split('_')[1][1]))
 
+    print()
     print(start + " to " + end)
     print(ops)
+
+    sts = []
+    for st in path_states:
+        _st = st.state_name
+        sts.append(_st.split('_')[1])
+    print(sts)
+    print()
     
     # Start the robot commands
-    robot.go(ops)
+    robot.go(ops, sts)
 
 if __name__ == "__main__":
     main()

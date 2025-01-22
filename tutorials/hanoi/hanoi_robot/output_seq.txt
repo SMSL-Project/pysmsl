@@ -1,37 +1,39 @@
 aab to ccc
 [('3', 'c'), ('1', 'b'), ('2', 'c'), ('1', 'c')]
+['aab', 'aac', 'bac', 'bcc', 'ccc']
+
 Move 3 to c:
-Move to top of 3(...)
-Get down to height :...
+Move to top of 3 (pole b)
+Get down to height 10.0
 Close jaw
 Get up to top height
-Move to top of 3(...)
-Get down to height :...
+Move to top of pole c
+Get down to height 0.0
 Open jaws
 
 Move 1 to b:
-Move to top of 1(...)
-Get down to height :...
+Move to top of 1 (pole a)
+Get down to height 20.0
 Close jaw
 Get up to top height
-Move to top of 1(...)
-Get down to height :...
+Move to top of pole b
+Get down to height 0.0
 Open jaws
 
 Move 2 to c:
-Move to top of 2(...)
-Get down to height :...
+Move to top of 2 (pole a)
+Get down to height 10.0
 Close jaw
 Get up to top height
-Move to top of 2(...)
-Get down to height :...
+Move to top of pole c
+Get down to height 10.0
 Open jaws
 
 Move 1 to c:
-Move to top of 1(...)
-Get down to height :...
+Move to top of 1 (pole b)
+Get down to height 10.0
 Close jaw
 Get up to top height
-Move to top of 1(...)
-Get down to height :...
+Move to top of pole c
+Get down to height 20.0
 Open jaws
