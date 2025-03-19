@@ -1,0 +1,57 @@
+def move_disk(disk, target, cur_state):
+    textmsg("Move ", disk, " to ", target, ":")
+
+    # Define predefined positions
+    safe_height = 0.15  # Safe height above all disks
+    pick_height_offset = 0.01  # Offset when picking up the disk
+    place_height_offset = 0.01  # Offset when placing the disk
+
+    # Get the current position of the disk
+    disk_pole = cur_state[disk - 1]  # Current pole of the disk
+
+    # Compute heights based on stacked disks
+    height = {"a": 0.0, "b": 0.0, "c": 0.0}
+    for i in cur_state:
+        height[i] += 0.02  # Each disk adds 2cm to the height
+
+    # Move above the disk
+    textmsg("Move to top of disk ", disk, " at pole ", disk_pole)
+    movej(get_pose_above_pole(disk_pole, safe_height), a=1.2, v=0.25)
+
+    # Descend to pick up the disk
+    textmsg("Lowering to pick disk at height ", height[disk_pole])
+    movel(get_pose_above_pole(disk_pole, height[disk_pole] + pick_height_offset), a=0.5, v=0.2)
+
+    # Grab disk (Close gripper)
+    textmsg("Close jaw")
+    set_digital_out(0, True)  # Assuming DO0 controls the gripper
+
+    # Lift the disk up
+    textmsg("Lifting disk")
+    movel(get_pose_above_pole(disk_pole, safe_height), a=1.2, v=0.25)
+
+    # Move to target pole
+    textmsg("Move to top of pole ", target)
+    movej(get_pose_above_pole(target, safe_height), a=1.2, v=0.25)
+
+    # Lower to place the disk
+    textmsg("Lowering to place disk at height ", height[target])
+    movel(get_pose_above_pole(target, height[target] + place_height_offset), a=0.5, v=0.2)
+
+    # Release disk (Open gripper)
+    textmsg("Open jaw")
+    set_digital_out(0, False)  # Assuming DO0 controls the gripper
+
+    # Move back to safe height
+    textmsg("Moving back to safe height")
+    movel(get_pose_above_pole(target, safe_height), a=1.2, v=0.25)
+
+# Helper function to compute pose above a pole
+def get_pose_above_pole(pole, height):
+    # Define fixed X, Y positions for each pole
+    pole_positions = {
+        "a": [0.2, 0.0, height, 0, 3.14, 0],
+        "b": [0.4, 0.0, height, 0, 3.14, 0],
+        "c": [0.6, 0.0, height, 0, 3.14, 0],
+    }
+    return p[pole_positions[pole][0], pole_positions[pole][1], height, pole_positions[pole][3], pole_positions[pole][4], pole_positions[pole][5]]
