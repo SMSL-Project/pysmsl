@@ -6,8 +6,6 @@ SMSL is a data language to serialize finite state machine.
 
 An example script can be seen in [hanoi.py](https://github.com/SMSL-Project/pysmsl/tree/main/tutorials/hanoi.py), a finite state machine for automatically playing Hanoi Tower. Its serialized state machine is [hanoi.json](https://github.com/SMSL-Project/pysmsl/tree/main/examples/hanoi.json)
 
-![Hanoi Tower](https://github.com/SMSL-Project/pysmsl/blob/main/examples/gripper_hanoi.gif)
-
 ## Design Goals
 
 * *State machine serialization*. The main goal of SMSL is to read / serialize finite state machines from / to string-based data. The SMSL is a new data language similar to JSON that is designed specifically for state machines. The format of the data language can be seen in [example.smsl](https://github.com/SMSL-Project/pysmsl/tree/main/examples/example.smsl)
