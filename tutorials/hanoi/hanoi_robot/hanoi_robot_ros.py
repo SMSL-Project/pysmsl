@@ -1,16 +1,16 @@
+#!/usr/bin/env python3
+
 import sys
 sys.path.append('src/smsl/')
-
 from functools import partial
 import json
 import smsl
 from smsl_state import smslState
-
 sys.path.append('tutorials/hanoi/hanoi_robot/')
 from msg_producer import MsgProducer
-
-# from hanoi_robot import get_topic_data_once
-# from std_msgs.msg import Float32MultiArray
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import PoseArray, PoseStamped
 
 
 class smslTutorialHanoiSensor:
@@ -180,8 +180,36 @@ class smslTutorialHanoiRobot:
         self.buffer_move_disk.append(partial(self.move_disk, disk, target, cur_state))
 
 
-def main():
+class TargetPosesPublisher(Node):
+    def __init__(self, robot):
+        super().__init__('target_poses_publisher')
+        # Create a publisher on the "target_poses" topic.
+        self.publisher_ = self.create_publisher(PoseArray, 'target_poses', 10)
+        self.timer = self.create_timer(1.0, self.publish_target_poses)
+        self.robot = robot
 
+    def publish_target_poses(self):
+        # Create a PoseArray message
+        msg = PoseArray()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = "base_link"
+        
+        for target in self.robot.action:
+            if isinstance(target, PoseStamped):
+                msg.poses.append(target.pose)
+            else:
+                # If your array is not PoseStamped, you may have a different message type.
+                self.get_logger().warn('Unexpected message type in robot.action.target_pose_list')
+
+        # Publish the message
+        self.publisher_.publish(msg)
+        self.get_logger().info('Published target poses.')
+
+        # destroy the timer afterward.
+        self.timer.cancel()
+
+def main(args=None):
+    
     # Read in SMSL
     sm = smsl.smslStateMachine('examples/hanoi.json')
     
@@ -223,6 +251,16 @@ def main():
     
     # Start the robot commands
     robot.go(ops, sts)
+
+    # Publish
+    rclpy.init(args=args)
+    node = TargetPosesPublisher(robot)
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    node.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == "__main__":
     main()
