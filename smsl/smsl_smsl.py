@@ -1,6 +1,6 @@
 import copy
-from smsl_state_branch import smslStateBranch
-from smsl_errors import (
+from .smsl_state_branch import smslStateBranch
+from .smsl_errors import (
     smslSubSBNotFound,
 )
 

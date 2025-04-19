@@ -1,8 +1,8 @@
 import json
-from smsl_state_branch import smslStateBranch
-from smsl_state import smslState
-from smsl_operation import smslOperation
-from smsl_smsl import post_process
+from .smsl_state_branch import smslStateBranch
+from .smsl_state import smslState
+from .smsl_operation import smslOperation
+from .smsl_smsl import post_process
 
 def process_file_data(json_data : dict):
     """

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pysmsl',
-    version='0.0.1',
+    version='0.1.1',
     packages=find_packages(exclude=['smsl.smsl_parser', 'smsl.smsl_parser.*']),
     install_requires=[
         'pyyaml',

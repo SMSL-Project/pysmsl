@@ -1,4 +1,4 @@
-from smsl_state import smslState
+from .smsl_state import smslState
 
 class smslOperation:
     """

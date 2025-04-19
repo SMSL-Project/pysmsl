@@ -1,9 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from smsl_state import smslState
-from smsl_state import smslState
-from smsl_operation import smslOperation
-from smsl_constants import (
+from .smsl_state import smslState
+from .smsl_operation import smslOperation
+from .smsl_constants import (
     smslDict_SB_Statedigit
 )
 
