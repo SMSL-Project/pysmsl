@@ -1,0 +1,2 @@
+recursive-include smsl *.py
+recursive-exclude smsl/smsl_parser *
