@@ -31,8 +31,8 @@ class TrajectoryPlannerNode(Node):
         super().__init__('trajectory_planner')
 
         # Declare parameters for velocity and time step
-        self.declare_parameter('velocity', 0.2)   # m/s; adjust as needed
-        self.declare_parameter('step_time', 0.1)     # seconds between each step
+        self.declare_parameter('velocity', 0.065)   # m/s; adjust as needed
+        self.declare_parameter('step_time', 0.05)     # seconds between each step
 
         self.velocity = self.get_parameter('velocity').value
         self.step_time = self.get_parameter('step_time').value

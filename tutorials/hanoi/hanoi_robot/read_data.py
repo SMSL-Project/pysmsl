@@ -21,10 +21,13 @@ def get_topic_data_once(topic_name, message_type, timeout=5.0):
 
     try:
         # Wait for the message with a timeout
-        start_time = node.get_clock().now().to_sec()
+        current_time = node.get_clock().now()
+        start_time = current_time.nanoseconds / 1e9
         while not future.done():
             rclpy.spin_once(node, timeout_sec=0.1)
-            if node.get_clock().now().to_sec() - start_time > timeout:
+            current_time = node.get_clock().now()
+            current_time_ = current_time.nanoseconds / 1e9
+            if current_time_ - start_time > timeout:
                 node.get_logger().warn(f"Timeout waiting for topic: {topic_name}")
                 return None
     finally:

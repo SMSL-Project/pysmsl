@@ -5,12 +5,13 @@ import copy
 class MsgProducer:
 
     def __init__(self):
+        
+        self.top_height = 0.6589699317712477
+        self.disk_thickness = 0.020
         self.base_cartesians = {}
         self.set_up_base_cartesians()
-        self.top_height = 0.3902996289675307
-        self.grab_y = 0.48687487626632897
-        self.disk_thickness = 0.038671
-        self.set_up_base_cartesians()
+        self.grab_cartesians = {}
+        self.set_up_grab_cartesians()
 
     def set_up_base_cartesians(self):
 
@@ -22,15 +23,15 @@ class MsgProducer:
         pose_msg.header.frame_id = 'base_link'
 
         # Set the position
-        pose_msg.pose.position.x = -0.21188165741609216
-        pose_msg.pose.position.y = 0.41949083332240383
-        pose_msg.pose.position.z = 0.24920643514825566
+        pose_msg.pose.position.x = -0.3463386680520093
+        pose_msg.pose.position.y = 0.7085564847436839
+        pose_msg.pose.position.z = 0.550762193872306
 
         # Set the orientation
-        pose_msg.pose.orientation.x = 0.1425637908061899
-        pose_msg.pose.orientation.y = 0.6909234219109138
-        pose_msg.pose.orientation.z = 0.6904252762890299
-        pose_msg.pose.orientation.w = -0.16004164603970708
+        pose_msg.pose.orientation.x = -0.005135652915416821 
+        pose_msg.pose.orientation.y = 0.700599465406546
+        pose_msg.pose.orientation.z = 0.7134869226760107
+        pose_msg.pose.orientation.w = -0.008391978998458685
 
         self.base_cartesians["a"] = pose_msg
 
@@ -42,15 +43,15 @@ class MsgProducer:
         pose_msg.header.frame_id = 'base_link'
 
         # Set the position
-        pose_msg.pose.position.x = -0.03438751179550842
-        pose_msg.pose.position.y = 0.41949083332240383
-        pose_msg.pose.position.z = 0.24920643514825566
+        pose_msg.pose.position.x = -0.16023952117840168
+        pose_msg.pose.position.y = 0.7081600369982457
+        pose_msg.pose.position.z = 0.5475750870920807
 
         # Set the orientation
-        pose_msg.pose.orientation.x = 0.1425637908061899
-        pose_msg.pose.orientation.y = 0.6909234219109138
-        pose_msg.pose.orientation.z = 0.6904252762890299
-        pose_msg.pose.orientation.w = -0.16004164603970708
+        pose_msg.pose.orientation.x = -0.005135652915416821 
+        pose_msg.pose.orientation.y = 0.700599465406546
+        pose_msg.pose.orientation.z = 0.7134869226760107
+        pose_msg.pose.orientation.w = -0.008391978998458685
 
         self.base_cartesians["b"] = pose_msg
 
@@ -63,18 +64,80 @@ class MsgProducer:
         pose_msg.header.frame_id = 'base_link'
 
         # Set the position
-        pose_msg.pose.position.x = 0.13733056350988745
-        pose_msg.pose.position.y = 0.41949083332240383
-        pose_msg.pose.position.z = 0.24920643514825566
+        pose_msg.pose.position.x = 0.027097420286928464
+        pose_msg.pose.position.y = 0.7110830903885906
+        pose_msg.pose.position.z = 0.54756436203263
 
         # Set the orientation
-        pose_msg.pose.orientation.x = 0.1425637908061899
-        pose_msg.pose.orientation.y = 0.6909234219109138
-        pose_msg.pose.orientation.z = 0.6904252762890299
-        pose_msg.pose.orientation.w = -0.16004164603970708
+        pose_msg.pose.orientation.x = -0.005135652915416821 
+        pose_msg.pose.orientation.y = 0.700599465406546
+        pose_msg.pose.orientation.z = 0.7134869226760107
+        pose_msg.pose.orientation.w = -0.008391978998458685
 
         self.base_cartesians["c"] = pose_msg
 
+    def set_up_grab_cartesians(self):
+
+        # Create the PoseStamped message
+        pose_msg = PoseStamped()
+
+        # Set the header
+        pose_msg.header = Header()
+        pose_msg.header.frame_id = 'base_link'
+
+        # Set the position
+        pose_msg.pose.position.x = -0.3463598787075253
+        pose_msg.pose.position.y = 0.9056499938766277
+        pose_msg.pose.position.z = 0.5507606182192675
+
+        # Set the orientation
+        pose_msg.pose.orientation.x = -0.005135652915416821 
+        pose_msg.pose.orientation.y = 0.700599465406546
+        pose_msg.pose.orientation.z = 0.7134869226760107
+        pose_msg.pose.orientation.w = -0.008391978998458685
+
+        self.grab_cartesians["a"] = pose_msg
+
+        # Create the PoseStamped message
+        pose_msg = PoseStamped()
+
+        # Set the header
+        pose_msg.header = Header()
+        pose_msg.header.frame_id = 'base_link'
+
+        # Set the position
+        pose_msg.pose.position.x = -0.16025886523952607
+        pose_msg.pose.position.y = 0.9138899451971881
+        pose_msg.pose.position.z = 0.5475881372822955
+
+        # Set the orientation
+        pose_msg.pose.orientation.x = -0.005135652915416821 
+        pose_msg.pose.orientation.y = 0.700599465406546
+        pose_msg.pose.orientation.z = 0.7134869226760107
+        pose_msg.pose.orientation.w = -0.008391978998458685
+
+        self.grab_cartesians["b"] = pose_msg
+
+
+        # Create the PoseStamped message
+        pose_msg = PoseStamped()
+
+        # Set the header
+        pose_msg.header = Header()
+        pose_msg.header.frame_id = 'base_link'
+
+        # Set the position
+        pose_msg.pose.position.x = 0.027113516884134697
+        pose_msg.pose.position.y = 0.9149684524328227
+        pose_msg.pose.position.z = 0.5475803913659942
+
+        # Set the orientation
+        pose_msg.pose.orientation.x = -0.005135652915416821 
+        pose_msg.pose.orientation.y = 0.700599465406546
+        pose_msg.pose.orientation.z = 0.7134869226760107
+        pose_msg.pose.orientation.w = -0.008391978998458685
+
+        self.grab_cartesians["c"] = pose_msg
 
     def get_cartesians(self, cur_state, pole, top_height=False, grabbing=False, grabbed=False, releasing=False):
         copied_msg = copy.deepcopy(self.base_cartesians[pole])
@@ -112,6 +175,7 @@ class MsgProducer:
                     copied_msg.pose.position.z + height[pole]-self.disk_thickness
 
         if grabbed or grabbing:
-            copied_msg.pose.position.y = self.grab_y
+            copied_msg.pose.position.x = self.grab_cartesians[pole].pose.position.x
+            copied_msg.pose.position.y = self.grab_cartesians[pole].pose.position.y
 
         return copied_msg

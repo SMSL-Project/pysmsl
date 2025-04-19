@@ -11,7 +11,8 @@ from msg_producer import MsgProducer
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseArray, PoseStamped
-
+from read_data import get_topic_data_once
+from std_msgs.msg import Float32MultiArray
 
 class smslTutorialHanoiSensor:
 
@@ -70,10 +71,9 @@ class smslTutorialHanoiSensor:
         """
         Interface to the sensor readings
         """
-        # data = get_topic_data_once('load_cells_data', Float32MultiArray)
-        # print(f"Received data: {data}")
-        # return {"a": data[0], "b": data[1], "c": data[2]}
-        return {"a": 114000.0, "b": 106000.0, "c": 0.0}
+        data = get_topic_data_once('load_cells_data', Float32MultiArray)
+        return {"a": data[0]/0.716, "b": data[1], "c": data[2]}
+        # return {"a": 114000.0, "b": 106000.0, "c": 0.0}
 
 
 class smslTutorialHanoiRobot:
@@ -99,16 +99,16 @@ class smslTutorialHanoiRobot:
 
         print("Move " + str(disk) + " to " + str(target) + ":")
 
-        # Move to top of the disk
-        s = "Move to top of " + str(disk) + " (pole " + cur_state[int(disk)-1] + ")"
-        print(s)
-        self.action_str.append(s)
-        self.action.append(
-            self.msg_producer.get_cartesians(cur_state, cur_state[int(disk)-1], True)
-        )
+        # # Move to top of the disk
+        # s = "Move to top of " + str(disk) + " (pole " + cur_state[int(disk)-1] + ")"
+        # print(s)
+        # self.action_str.append(s)
+        # self.action.append(
+        #     self.msg_producer.get_cartesians(cur_state, cur_state[int(disk)-1], True)
+        # )
 
         # Move to disk
-        disk_thickness = 0.038671
+        disk_thickness = 0.020
         height = {"a": 0.0, "b": 0.0, "c": 0.0}
         for i in cur_state:
             height[i] = height[i] + disk_thickness
@@ -214,7 +214,7 @@ def main(args=None):
     sm = smsl.smslStateMachine('examples/hanoi.json')
     
     # Disks' weights
-    disks_weights = {"1": 43000, "2": 75000, "3": 98000}
+    disks_weights = {"1": 62323, "2": 102235, "3": 150000}
 
     # Initialize the robot and sensor
     robot = smslTutorialHanoiRobot()
@@ -222,6 +222,8 @@ def main(args=None):
 
     # Get states and calculate path
     start = sensor.get_states(sensor.get_readings())
+    print(start)
+
     end = 'ccc'
     path = sm.state_machine[0].shortest_edge_path(
         smslState('State_'+start),
