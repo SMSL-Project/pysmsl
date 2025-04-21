@@ -1,0 +1,177 @@
+{
+    "SB1": {
+        "HEADER": {},
+        "State_bcaa": {
+            "Op_1a": "State_acaa",
+            "Op_3b": "State_bcba"
+        },
+        "State_abca": {
+            "Op_2c": "State_acca",
+            "Op_3b": "State_abba"
+        },
+        "State_bcba": {
+            "Op_1a": "State_acba",
+            "Op_3a": "State_bcaa",
+            "Op_3c": "State_bcca"
+        },
+        "State_cccc": {
+            "Op_2b": "State_cbcc",
+            "Op_4b": "State_cccb",
+            "Op_1b": "State_bccc"
+        },
+        "State_acab": {
+            "Op_4a": "State_acaa",
+            "Op_3b": "State_acbb"
+        },
+        "State_abcc": {
+            "Op_2c": "State_accc",
+            "Op_3b": "State_abbc"
+        },
+        "State_abaa": {
+            "Op_2a": "State_aaaa",
+            "Op_3b": "State_abba"
+        },
+        "State_cccb": {
+            "Op_4c": "State_cccc"
+        },
+        "State_cbac": {
+            "Op_2a": "State_caac",
+            "Op_3b": "State_cbbc"
+        },
+        "State_aaaa": {
+            "Op_2b": "State_abaa",
+            "Op_4b": "State_aaab",
+            "Op_1b": "State_baaa"
+        },
+        "State_cbbc": {
+            "Op_2a": "State_cabc",
+            "Op_3a": "State_cbac",
+            "Op_3c": "State_cbcc"
+        },
+        "State_accc": {
+            "Op_2b": "State_abcc",
+            "Op_4b": "State_accb"
+        },
+        "State_abbc": {
+            "Op_3a": "State_abac",
+            "Op_3c": "State_abcc"
+        },
+        "State_ccca": {
+            "Op_2b": "State_cbca",
+            "Op_1b": "State_bcca"
+        },
+        "State_aaac": {
+            "Op_2b": "State_abac",
+            "Op_1b": "State_baac"
+        },
+        "State_accb": {
+            "Op_4c": "State_accc",
+            "Op_3b": "State_acbb"
+        },
+        "State_baaa": {
+            "Op_1a": "State_aaaa"
+        },
+        "State_cbca": {
+            "Op_2c": "State_ccca",
+            "Op_3b": "State_cbba"
+        },
+        "State_bccc": {
+            "Op_1c": "State_cccc"
+        },
+        "State_acbb": {
+            "Op_4a": "State_acba",
+            "Op_3a": "State_acab",
+            "Op_3c": "State_accb"
+        },
+        "State_bacc": {
+            "Op_1c": "State_cacc",
+            "Op_3b": "State_babc"
+        },
+        "State_aaab": {
+            "Op_4a": "State_aaaa"
+        },
+        "State_caaa": {
+            "Op_2b": "State_cbaa",
+            "Op_4b": "State_caab"
+        },
+        "State_baac": {
+            "Op_1a": "State_aaac",
+            "Op_3b": "State_babc"
+        },
+        "State_cbcc": {
+            "Op_2c": "State_cccc",
+            "Op_3b": "State_cbbc"
+        },
+        "State_cbaa": {
+            "Op_2a": "State_caaa",
+            "Op_3b": "State_cbba"
+        },
+        "State_babc": {
+            "Op_1c": "State_cabc",
+            "Op_3a": "State_baac",
+            "Op_3c": "State_bacc"
+        },
+        "State_cacc": {
+            "Op_4b": "State_cacb",
+            "Op_1b": "State_bacc",
+            "Op_3b": "State_cabc"
+        },
+        "State_cbba": {
+            "Op_3a": "State_cbaa",
+            "Op_3c": "State_cbca"
+        },
+        "State_acca": {
+            "Op_2b": "State_abca",
+            "Op_3b": "State_acba"
+        },
+        "State_abba": {
+            "Op_2c": "State_acba",
+            "Op_3a": "State_abaa",
+            "Op_3c": "State_abca"
+        },
+        "State_caac": {
+            "Op_2b": "State_cbac",
+            "Op_3b": "State_cabc"
+        },
+        "State_abac": {
+            "Op_2a": "State_aaac",
+            "Op_3b": "State_abbc"
+        },
+        "State_acaa": {
+            "Op_4b": "State_acab",
+            "Op_1b": "State_bcaa",
+            "Op_3b": "State_acba"
+        },
+        "State_cabc": {
+            "Op_2b": "State_cbbc",
+            "Op_4b": "State_cabb",
+            "Op_1b": "State_babc",
+            "Op_3a": "State_caac",
+            "Op_3c": "State_cacc"
+        },
+        "State_bcca": {
+            "Op_1c": "State_ccca",
+            "Op_3b": "State_bcba"
+        },
+        "State_acba": {
+            "Op_4b": "State_acbb",
+            "Op_1b": "State_bcba",
+            "Op_2b": "State_abba",
+            "Op_3a": "State_acaa",
+            "Op_3c": "State_acca"
+        },
+        "State_cacb": {
+            "Op_4c": "State_cacc",
+            "Op_3b": "State_cabb"
+        },
+        "State_caab": {
+            "Op_4a": "State_caaa",
+            "Op_3b": "State_cabb"
+        },
+        "State_cabb": {
+            "Op_4c": "State_cabc",
+            "Op_3a": "State_caab",
+            "Op_3c": "State_cacb"
+        }
+    }
+}
