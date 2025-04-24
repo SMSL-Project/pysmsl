@@ -72,7 +72,7 @@
             "Op_1c": "State_cbb"
         },
         "State_cbb": {
-            "Op_1c": "State_bbb",
+            "Op_1b": "State_bbb",
             "Op_1a": "State_abb",
             "Op_2a": "State_cab"
         },
@@ -101,7 +101,7 @@
         "State_cbc": {
             "Op_1b": "State_bbc",
             "Op_1a": "State_abc",
-            "Op_2b": "State_cac"
+            "Op_2a": "State_cac"
         },
         "State_abc": {
             "Op_1b": "State_bbc",
